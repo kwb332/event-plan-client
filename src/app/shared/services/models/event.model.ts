@@ -5,9 +5,10 @@ title: string,
 poster: string,
 type: string,
 description: string,
-location: string,
-longitude: number,
-latitude :  number,
+street: string,
+state: string,
+primaryColor: string,
+secondaryColor: string,
 startDate: Date,
 endDate: Date
 
@@ -19,10 +20,12 @@ title: string,
 poster: string,
 type: string,
 description: string,
-location: string,
-longitude: number,
-latitude :  number,
+street: string,
+state: string,
+primaryColor: string,
+secondaryColor: string,
 startDate: Date,
 endDate: Date
 
 }
+

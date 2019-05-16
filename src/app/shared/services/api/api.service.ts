@@ -21,6 +21,8 @@ constructor(private apollo: Apollo, private http: Http, private httpClient: Http
 
 getEvents() : Observable<Event[]>
 {
+    console.log("we in");
+        alert();
     return this.apollo
        .watchQuery<any>({
         fetchPolicy: 'network-only',
@@ -30,14 +32,16 @@ getEvents() : Observable<Event[]>
           events
           {
             id
-            description
-            type
-            poster
-            startDate
-            endDate
-            latitude
-            location
-            longitude
+    description
+    type
+    poster
+    startDate
+    endDate
+    street
+    state
+    primaryColor
+    secondaryColor
+    
           }
         }
         `,
@@ -58,14 +62,16 @@ getEvent(id : number) : Observable<Event>
           event(id :${id})
           {
             id
-            description
-            type
-            poster
-            startDate
-            endDate
-            latitude
-            location
-            longitude
+    description
+    type
+    poster
+    startDate
+    endDate
+    street
+    state
+    primaryColor
+    secondaryColor
+    
             
           }
         }

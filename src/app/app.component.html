@@ -1,9 +1,79 @@
-<div class="container">
-    <nav>
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-        <a routerLink="/events" routerLinkActive="active">View Events</a>
-        <a routerLink="/locations" routerLinkActive="active">View Locations</a>
-    </nav>
-    <router-outlet></router-outlet>
+<div class="fluid-container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+           
+                <a class="navbar-brand logo" href="#">Raggio <span>EventPlan &reg;</span></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="right-nav collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                          <a routerLink="/home"  routerLinkActive="active" class="nav-item nav-link active">Home <span class="sr-only">(current)</span></a>
+                          <a routerLink="/locations"  routerLinkActive="active"  class="nav-item nav-link">Locations</a>
+                          <a routerLink="/events"  routerLinkActive="active" class="nav-item nav-link btn btn-primary btn-primary-outline">Events</a>
+                        </div>
+                </div>
+        </nav>
+    <div class="row top">
+            <div class="book-event-div col-md-12">
+                    <div class="col-md-4 block left">
+                     
+                    </div>
+                    <div class="col-md-4 block center">
+                            <app-modal-event></app-modal-event>
+                    </div>
+                    <div class="col-md-4 block right">
+                     
+                    </div>
+            </div>
+                  
+          
+   
+    </div>
+    <div class="app-row middle">
+            <div class="app-column middle">
+                <section>
+                    <header class="section-header">
+                      Book your events in a jiffy
+                    </header>
+                    <div>
+
+                    </div>
+                    <footer>
+
+                    </footer>
+                </section>
+            </div>
+            <div class="app-column middle mid-section">
+                    <section class="mid-section">
+                            <header class="section-header">
+                             Powered By the MEAN Stack
+                            </header>
+                            <div>
+        
+                            </div>
+                            <footer>
+                                
+                            </footer>
+                        </section>
+            </div>
+            <div class="app-column middle"> <section>
+                    <header class="section-header">
+                      View all Events Using Google Maps
+                    </header>
+                    <div>
+
+                    </div>
+                    <footer>
+                        
+                    </footer>
+                </section>
+            </div>
+    </div>
+     <div class="row">
+         <div class="col-md-12">
+                <router-outlet></router-outlet>
+         </div>
+     </div>
+    
 </div>
 

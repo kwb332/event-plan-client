@@ -10,7 +10,8 @@ import { EventCalendarModule } from './app/event-calendar/event-calendar.module'
 import { EventCalendarComponent } from './app/event-calendar/event-calendar.component';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-
+import {CustExtBrowserXhr} from './app/shared/services/cust-ext-browser-xhr';
+import { BrowserXhr } from '@angular/http';
 if (environment.production) {
   enableProdMode();
 }

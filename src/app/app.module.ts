@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule, forwardRef } from '@angular/core';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
@@ -21,6 +21,12 @@ import { LocationComponent } from './location/location.component';
 import { LocationModule } from './location/location.module';
 import { HomeModule } from './home/home.module';
 import {AgmCoreModule} from '@agm/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { ApolloLink, concat } from 'apollo-link';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { EventModalModule } from './shared/modals/event.modal.module';
+
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -35,14 +41,17 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    EventModalModule,
     EventModule,
     AgmCoreModule.forRoot({
       apiKey:'AIzaSyChRz9QNIFJJ6I3SfGlSHcMx7veSPV3TOM'
     }),
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      appRoutes
     ),
+    FormsModule,
     EventCalendarModule,
     LocationModule,
     HomeModule,
@@ -53,6 +62,7 @@ const appRoutes: Routes = [
     }),
     ApolloModule,
     HttpLinkModule,
+    HttpModule,
     NgbModule,
     HttpClientModule,
     AppRoutingModule
@@ -66,8 +76,19 @@ export class AppModule {
     apollo: Apollo,
     httpLink: HttpLink) 
     { 
+      const authMiddleware = new ApolloLink((operation,forward) => {
+        const currentUserToken = 'erererere-erere-ererere';
+        if(currentUserToken){
+          operation.setContext({
+            headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'http://localhost:4200')
+          })
+        }
+    
+      return forward(operation)
+    });      
       apollo.create({
-        link: httpLink.create({ uri: environment.graphqlEndpoint }),
+       
+        link: concat(authMiddleware,  httpLink.create({ uri: environment.graphqlEndpoint })),
         cache: new InMemoryCache()
       });
     }
