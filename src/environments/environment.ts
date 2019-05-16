@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  graphqlEndpoint: 'http://airvolutiondevgatewayapi.azurewebsites.net/graphql'
+  graphqlEndpoint: 'http://localhost:4000/graphql'
 };
 
 /*
