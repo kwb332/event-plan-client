@@ -1,0 +1,7 @@
+.home
+{
+    background-image: url(../../assets/homeimage.png);
+    height: 800px;
+    background-position: cover;
+    margin-top: -5%;
+}
