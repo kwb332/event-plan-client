@@ -5,43 +5,41 @@ import{location} from '../models/location.model';
 import{Event} from '../models/event.model'
 import { httpFactory } from '@angular/http/src/http_module';
 import { defineDirective } from '@angular/core/src/render3';
+import { forkJoin } from 'rxjs';
+import { Observable } from 'apollo-link';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiMapsService {
-  private curlocation : location;
+ 
   constructor(private http: HttpClient) {
     
   }
-  getEventLocations(events : Event[])
+  //https://stackoverflow.com/questions/40407298/calling-angular2-service-in-a-loop
+  getEventLocations(events : Event[]) 
   {
-    let locations = [];
+    let locationObserverables = new Array();
+    let locations : location[] = [];
     var pos = 0;
-    var arr = [];
     var size = events.length;
-    events.map(event => {
-      var address = event.street+", "+event.state;
-      return this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyChRz9QNIFJJ6I3SfGlSHcMx7veSPV3TOM").subscribe(
-        result => {
-          console.log("Testing Testing Testing");
-          console.log(JSON.stringify(result));
-          this.curlocation = {
-              lat : result.results[0].geometry.location.lat,
-              lng : result.results[0].geometry.location.lat
-          }
-         
-        }
-      );
-}).forEach(event => { 
-  locations.push(event);
+    for(var i=0; i< size;i++)
+    {
+       var address = events[i].street+", "+events[i].state;
+       locationObserverables.push(this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyChRz9QNIFJJ6I3SfGlSHcMx7veSPV3TOM"));
+    }
 
-},pos);
-alert(size);
-if(pos == size)
-{
- 
-    return locations;
-}
-     
+forkJoin(locationObserverables).subscribe(
+    res =>{
+
+      
+    },
+    error =>
+    {
+      console.log(error);
+    });
+
+  
+    return locationObserverables;
   }
+  
 }

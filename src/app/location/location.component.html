@@ -1,5 +1,11 @@
 <agm-map [latitude] = lat [longitude] = lng>
   <agm-marker [latitude] = location.lat [longitude] = location.lng *ngFor="let location of locations" >
-
+      <agm-info-window>
+        <p>Event Title: {{location.title}}</p>
+        <p>Address: {{location.address}}</p>
+        <p>Description: {{location.description}}</p>
+        <p>Start Date: {{location.start}}</p>
+        <p>End Date: {{location.end}}</p>
+      </agm-info-window>
   </agm-marker>
 </agm-map>

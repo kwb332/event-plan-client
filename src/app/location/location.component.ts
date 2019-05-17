@@ -3,6 +3,7 @@ import { ApiMapsService } from '../shared/services/api/api.maps.service';
 import { ApiService } from '../shared/services/api/api.service';
 import{location} from '../shared/services/models/location.model';
 import{Event} from '../shared/services/models/event.model'
+import { observable } from 'rxjs';
 
 @Component({
   selector: 'app-location',
@@ -10,9 +11,10 @@ import{Event} from '../shared/services/models/event.model'
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent implements OnInit {
-  private locations : location[];
-  private lat : number;
+  private locations : location[] = [];
+  private lat : number; 
   private lng : number;
+  private curlocation : location;
   constructor(private map : ApiMapsService, private apiService : ApiService) { }
 
   ngOnInit() {
@@ -32,12 +34,53 @@ export class LocationComponent implements OnInit {
       {
         console.log(error);
       }) */
+    
+      let geoLocations : any[] = [];
+      geoLocations = this.map.getEventLocations(this.eventData);
+      var index = 0;
+      geoLocations.map<any>(res => 
+        {
+           res.subscribe(location => {
+           
+            this.curlocation = {
+              lat : location.results[0].geometry.location.lat,
+              lng : location.results[0].geometry.location.lng,
+              title: this.eventData[index].title,
+              address: location.results[0].formatted_address,
+              description: this.eventData[index].description,
+              start: this.eventData[index].startDate,
+              end: this.eventData[index].endDate
 
-      this.locations = this.map.getEventLocations(this.eventData);
-      console.log("This is the first time");
-      console.log(JSON.stringify(this.locations));
-        this.lat = this.locations[0].lat;
-        this.lng = this.locations[0].lng;
+            }
+            index++;
+      
+            this.locations.push(this.curlocation);
+    
+            if(this.locations.length == 1)
+            {
+              this.lat = this.curlocation.lat;
+              this.lng = this.curlocation.lng;
+            }
+           
+            //console.log("Fork it like you talk it");
+            //console.log(this.curlocation);
+           },
+           error=>
+           {
+            console.log("Fork it like you talk it, failed");
+             console.log(error);
+           }
+           )
+ 
+        }
+        
+        ,
+        error => {
+          console.log(error);
+        });
+        
+      //  this.lat = this.locations[0].lat;
+        //this.lng = this.locations[0].lng;
   }
 
   eventData : Event[]=[
