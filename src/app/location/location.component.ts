@@ -3,7 +3,8 @@ import { ApiMapsService } from '../shared/services/api/api.maps.service';
 import { ApiService } from '../shared/services/api/api.service';
 import{location} from '../shared/services/models/location.model';
 import{Event} from '../shared/services/models/event.model'
-import { observable } from 'rxjs';
+import { observable, Subscription } from 'rxjs';
+import {MessagingService} from '../shared/services/messaging/messaging.service'
 
 @Component({
   selector: 'app-location',
@@ -15,7 +16,35 @@ export class LocationComponent implements OnInit {
   private lat : number; 
   private lng : number;
   private curlocation : location;
-  constructor(private map : ApiMapsService, private apiService : ApiService) { }
+  private messageSubscription : Subscription;
+
+  constructor(private map : ApiMapsService, private messagingService : MessagingService, private apiService : ApiService) {
+    this.messageSubscription = this.messagingService.getObject().subscribe(newEventInput =>
+      {
+          let newEvent : Event = 
+          {
+             id : newEventInput.id,
+             description: newEventInput.description,
+             endDate : newEventInput.endDate,
+             startDate : newEventInput.startDate,
+             secondaryColor : newEventInput.secondaryColor,
+             state : newEventInput.state,
+             street : newEventInput.street,
+             poster : newEventInput.poster,
+             primaryColor : newEventInput.primaryColor,
+             title : newEventInput.title,
+             type : newEventInput.type
+          } 
+           this.eventData.push(newEvent);
+           this.populateEventLocations();
+        
+      },
+      error=>
+      {
+        console.log(error);
+      });
+  }
+   
 
   ngOnInit() {
     
@@ -34,7 +63,7 @@ export class LocationComponent implements OnInit {
       {
         console.log(error);
       }) */
-    
+      this.locations = [];
       let geoLocations : any[] = [];
       geoLocations = this.map.getEventLocations(this.eventData);
       var index = 0;

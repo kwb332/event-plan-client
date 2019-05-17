@@ -42,7 +42,7 @@ import {
 } from '@angular/material';
 
 @NgModule({
-  imports: [BrowserModule, NgbModule, MatNativeDateModule, MatDatepickerModule, MatInputModule, MatSelectModule,FormsModule],
+  imports: [BrowserModule, NgbModule, MatSnackBarModule, MatNativeDateModule, MatDatepickerModule, MatInputModule, MatSelectModule,FormsModule],
   declarations: [EventModalComponent],
   exports: [EventModalComponent],
 

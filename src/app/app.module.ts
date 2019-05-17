@@ -26,7 +26,7 @@ import { HttpModule } from '@angular/http';
 import { ApolloLink, concat } from 'apollo-link';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { EventModalModule } from './shared/modals/event.modal.module';
-
+import {MessagingService} from '../app/shared/services/messaging/messaging.service'
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -68,7 +68,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

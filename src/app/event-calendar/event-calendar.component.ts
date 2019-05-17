@@ -4,8 +4,10 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
 import { ApiService } from '../shared/services/api/api.service';
-import {Event} from '../shared/services/models/event.model';
+import {Event, EventInput} from '../shared/services/models/event.model';
 import {EventModalComponent} from '../shared/modals/event.modal.component';
+import {MessagingService} from '../shared/services/messaging/messaging.service'
+import {Subscription} from 'rxjs'
 
 const colors: any = {
   red: {
@@ -32,7 +34,8 @@ const colors: any = {
 })
 
 export class EventCalendarComponent implements OnInit {
-
+private messageSubscription : Subscription;
+private count : number = 0;
   getColor(color:string)
   {
     switch(color)
@@ -45,16 +48,41 @@ export class EventCalendarComponent implements OnInit {
          return colors.yellow;
     }
   }
-  constructor(private modal: NgbModal, private apiService : ApiService ) {
-
+  constructor(private modal: NgbModal, private apiService : ApiService, private messagingService : MessagingService ) {
+     this.messageSubscription = this.messagingService.getObject().subscribe(newEventInput =>
+      {
+          let newEvent : Event = 
+          {
+             id : newEventInput.id,
+             description: newEventInput.description,
+             endDate : newEventInput.endDate,
+             startDate : newEventInput.startDate,
+             secondaryColor : newEventInput.secondaryColor,
+             state : newEventInput.state,
+             street : newEventInput.street,
+             poster : newEventInput.poster,
+             primaryColor : newEventInput.primaryColor,
+             title : newEventInput.title,
+             type : newEventInput.type
+          } 
+           this.eventData.push(newEvent);
+           this.loadEvents();
+        
+      },
+      error=>
+      {
+        console.log(error);
+      });
   }
 
   ngOnInit() {
     this.loadEvents();
+    this.count = this.eventData.length;
   }
 
   loadEvents()
   {
+    this.events = [];
    /* this.apiService.getEvents().subscribe(event=>{
         this.eventData = event;
     },
@@ -99,7 +127,7 @@ console.log(JSON.stringify(this.events))
         street: '201 E Randolph St, Chicago',
         state: 'IL',
         primaryColor: 'Red',
-        secondaryColor:'blue',
+        secondaryColor:'Blue',
         startDate: new Date('02/02/2019'),
         endDate: new Date('02/04/2019')
     },
@@ -112,7 +140,7 @@ console.log(JSON.stringify(this.events))
         street: '343 S Dearborn St, Chicago',
         state: 'IL',
         primaryColor: 'Red',
-        secondaryColor:'blue',
+        secondaryColor:'Blue',
         startDate: new Date('02/05/2019'),
         endDate: new Date('02/06/2019')
     },
@@ -125,7 +153,7 @@ console.log(JSON.stringify(this.events))
         street: '75 E 16th St, Chicago',
         state: 'IL',
         primaryColor: 'Red',
-        secondaryColor:'blue',
+        secondaryColor:'Blue',
         startDate: new Date('02/08/2019'),
         endDate: new Date('02/10/2019')
     }
