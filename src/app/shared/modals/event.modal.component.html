@@ -1,107 +1,74 @@
 <ng-template #content let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Add New Event</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+       
         <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="title">Name of Event</label>
-              <div class="input-group">
-                <input id="title" type="text" [(ngModel)]="title" class="form-control" placeholder="Name of Event" name="dp"/>
-          
-              </div>
-            
-              <div class="input-group">
-                <input id="poster"  [(ngModel)]="poster" type="hidden" class="form-control" placeholder="Poster"/>
-               
-              </div>
-              <label for="type">Type</label>
-              <div class="input-group">
-                <select  [(ngModel)]="type" id="type" class="form-control">
-                    <option value="Wedding">Wedding</option>
-                    <option value="Footbal Game">Footbal Game</option>
-                    <option value="Concert">Concert</option>
-                </select>
-               
-              </div>
-              <label for="description">Description</label>
-              <div class="input-group">
-                <textarea id="description"  [(ngModel)]="description" class="form-control" placeholder="Description"></textarea>
-                
-              </div>
-              <label for="street">Address</label>
-              <div class="input-group">
-                <input id="street" class="form-control"  [(ngModel)]="street" placeholder="Street">
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <input required matInput [(ngModel)]="title" name="title" placeholder="Name of Event" value="">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input matInput [(ngModel)]="poster" name="poster" readonly="readonly" placeholder="Poster" value="raggio@gmailorg.com">
+                </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Event Type</mat-label>
+                      <mat-select required name="type" [(ngModel)]="type" >
+                          <mat-option value="Wedding">Wedding</mat-option>
+                          <mat-option value="Footbal Game">Footbal Game</mat-option>
+                          <mat-option  value="Concert">Concert</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <textarea required name="description" matInput placeholder="Description" [(ngModel)]="description"></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input matInput name="street" [(ngModel)]="street" required placeholder="Street Address & City" value="">
+                    </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>State</mat-label>
+                      <mat-select required name="state" [(ngModel)]="state" >
+                          <mat-option value="IL">IL</mat-option>
+                          <mat-option value="NY">NY</mat-option>
+                          <mat-option value="CA">CA</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Primary Color</mat-label>
+                      <mat-select required name="primary" [(ngModel)]="primary">
+                          <mat-option value="Blue">Blue</mat-option>
+                          <mat-option value="Red">Red</mat-option>
+                          <mat-option value="Yellow">Yellow</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Secondary Color</mat-label>
+                      <mat-select required name="secondary"  [(ngModel)]="secondary">
+                          <mat-option value="Blue">Blue</mat-option>
+                          <mat-option value="Red">Red</mat-option>
+                          <mat-option value="Yellow">Yellow</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>Start Date</mat-label>
+                      <input required name="start" matInput [matDatepicker]="startDate" [(ngModel)]="start">
+                      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                      <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                      <mat-label>End Date</mat-label>
+                      <input required matInput name="end" [matDatepicker]="endDate" [(ngModel)]="end">
+                      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                      <mat-datepicker #endDate></mat-datepicker>
+                  </mat-form-field>
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-outline-dark">Save</button>
+                      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+                    </div>
+              </form>
               
-              </div>
-              <label for="state">State</label>
-              <div class="input-group">
-                    <select id="state"  [(ngModel)]="state" class="form-control">
-                        <option value="IL">
-                            IL
-                        </option>
-                        <option value="NY">
-                            NY
-                        </option>
-                       <option value="CA">
-                            CA
-                        </option>
-                    </select>
-              </div>
-              <label for="primaryColor">Primary Color</label>
-              <div class="input-group">
-                <select id="primaryColor" [(ngModel)]="title">
-                    <option value="Blue">
-                       Blue
-                    </option>
-                    <option value="Red">
-                        Red
-                    </option>
-                    <option value="Green">
-                        Green
-                    </option>
-                </select>
-               
-              </div>
-              <label for="SecondaryColor">Secondary Color</label>
-              <div class="input-group">
-                <select id="primaryColor" [(ngModel)]="primaryColor">
-                    <option value="Blue">
-                       Blue
-                    </option>
-                    <option value="Red">
-                        Red
-                    </option>
-                    <option value="Green">
-                        Green
-                    </option>
-                </select>
-               
-              </div>
-              <label for="startDate">Start Date</label>
-              <div class="input-group">
-                <input id="startDate"  [(ngModel)]="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dpstartDate" ngbDatepicker #dpstartDate="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="dpstartDate.toggle()" type="button"></button>
-                </div>
-              </div>
-              <label for="endDate">End Date</label>
-              <div class="input-group">
-                <input id="endDate" [(ngModel)]="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dpendDate" ngbDatepicker #dpendDate="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary calendar" (click)="dpendDate.toggle()" type="button"></button>
-                </div>
-              </div>
-            </div>
-          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-        </div>
+        
 </ng-template>
 <div>
         <button class="nav-item nav-link btn btn-primary btn-primary-outline2" (click)="open(content)">New Event</button>

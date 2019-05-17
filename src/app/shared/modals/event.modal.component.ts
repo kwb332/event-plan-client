@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
+
 @Component({
   selector: 'app-modal-event',
   templateUrl: './event.modal.component.html',
@@ -9,7 +10,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class EventModalComponent {
   closeResult: string;
-
+  poster : string = "raggio@brickbase.com";
   constructor(private modalService: NgbModal) {}
 
   open(content) {
