@@ -16,18 +16,32 @@ export class ApiMapsService {
   getEventLocations(events : Event[])
   {
     let locations = [];
-
+    var pos = 0;
+    var arr = [];
+    var size = events.length;
     events.map(event => {
-      return this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyChRz9QNIFJJ6I3SfGlSHcMx7veSPV3TOM").subscribe(
+      var address = event.street+", "+event.state;
+      return this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyChRz9QNIFJJ6I3SfGlSHcMx7veSPV3TOM").subscribe(
         result => {
+          console.log("Testing Testing Testing");
+          console.log(JSON.stringify(result));
           this.curlocation = {
-              lat : result.data.result[0].geometry.location.lat,
-              lng : result.data.result[0].geometry.location.lat
+              lat : result.results[0].geometry.location.lat,
+              lng : result.results[0].geometry.location.lat
           }
+         
         }
       );
-}).forEach(event => locations.push(event));
-       return locations;
+}).forEach(event => { 
+  locations.push(event);
+
+},pos);
+alert(size);
+if(pos == size)
+{
+ 
+    return locations;
+}
      
   }
 }

@@ -7,7 +7,8 @@
                 </button>
                 <div class="right-nav collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                          <a routerLink="/home"  routerLinkActive="active" class="nav-item nav-link active">Home <span class="sr-only">(current)</span></a>
+                          <a href="#appRoute" class="nav-item nav-link">Start</a>
+                          <a routerLink="/home"  routerLinkActive="active" class="nav-item nav-link active" href="#bottom">Home <span class="sr-only">(current)</span></a>
                           <a routerLink="/locations"  routerLinkActive="active"  class="nav-item nav-link">Locations</a>
                           <a routerLink="/events"  routerLinkActive="active" class="nav-item nav-link btn btn-primary btn-primary-outline">Events</a>
                         </div>
@@ -18,7 +19,7 @@
                     <div class="col-md-4 block left">
                      
                     </div>
-                    <div class="col-md-4 block center">
+                    <div id="appRoute" class="col-md-4 block center appRoute">
                             <app-modal-event></app-modal-event>
                     </div>
                     <div class="col-md-4 block right">
@@ -77,7 +78,15 @@
                 </section>
             </div>
     </div>
+    <div class="quick-nav">
+            
+                    <a routerLink="/home"  class="btn btn-primary btn-primary-outline active" href="#bottom">Home <span class="sr-only">(current)</span></a>
+                    <a routerLink="/locations"   class="btn btn-primary btn-primary-outline active">Locations</a>
+                    <a routerLink="/events"   class="btn btn-primary btn-primary-outline active">Events</a>
+
+     </div>
      <div class="app-row2 app-body">
+        
          <div class="app-body">
                 <router-outlet></router-outlet>
          </div>

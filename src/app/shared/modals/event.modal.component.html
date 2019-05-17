@@ -10,17 +10,17 @@
             <div class="form-group">
               <label for="title">Name of Event</label>
               <div class="input-group">
-                <input id="title" type="text" class="form-control" placeholder="Name of Event" name="dp"/>
-               
+                <input id="title" type="text" [(ngModel)]="title" class="form-control" placeholder="Name of Event" name="dp"/>
+          
               </div>
             
               <div class="input-group">
-                <input id="poster" type="hidden" class="form-control" placeholder="Poster"/>
+                <input id="poster"  [(ngModel)]="poster" type="hidden" class="form-control" placeholder="Poster"/>
                
               </div>
               <label for="type">Type</label>
               <div class="input-group">
-                <select id="type" class="form-control">
+                <select  [(ngModel)]="type" id="type" class="form-control">
                     <option value="Wedding">Wedding</option>
                     <option value="Footbal Game">Footbal Game</option>
                     <option value="Concert">Concert</option>
@@ -29,17 +29,17 @@
               </div>
               <label for="description">Description</label>
               <div class="input-group">
-                <textarea id="description" class="form-control" placeholder="Description"></textarea>
+                <textarea id="description"  [(ngModel)]="description" class="form-control" placeholder="Description"></textarea>
                 
               </div>
               <label for="street">Address</label>
               <div class="input-group">
-                <input id="street" class="form-control" placeholder="Street">
+                <input id="street" class="form-control"  [(ngModel)]="street" placeholder="Street">
               
               </div>
               <label for="state">State</label>
               <div class="input-group">
-                    <select id="state" class="form-control">
+                    <select id="state"  [(ngModel)]="state" class="form-control">
                         <option value="IL">
                             IL
                         </option>
@@ -53,7 +53,7 @@
               </div>
               <label for="primaryColor">Primary Color</label>
               <div class="input-group">
-                <select id="primaryColor">
+                <select id="primaryColor" [(ngModel)]="title">
                     <option value="Blue">
                        Blue
                     </option>
@@ -68,7 +68,7 @@
               </div>
               <label for="SecondaryColor">Secondary Color</label>
               <div class="input-group">
-                <select id="primaryColor">
+                <select id="primaryColor" [(ngModel)]="primaryColor">
                     <option value="Blue">
                        Blue
                     </option>
@@ -83,14 +83,14 @@
               </div>
               <label for="startDate">Start Date</label>
               <div class="input-group">
-                <input id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dpstartDate" ngbDatepicker #dpstartDate="ngbDatepicker">
+                <input id="startDate"  [(ngModel)]="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dpstartDate" ngbDatepicker #dpstartDate="ngbDatepicker">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="dpstartDate.toggle()" type="button"></button>
                 </div>
               </div>
               <label for="endDate">End Date</label>
               <div class="input-group">
-                <input id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dpendDate" ngbDatepicker #dpendDate="ngbDatepicker">
+                <input id="endDate" [(ngModel)]="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dpendDate" ngbDatepicker #dpendDate="ngbDatepicker">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary calendar" (click)="dpendDate.toggle()" type="button"></button>
                 </div>
@@ -104,6 +104,6 @@
         </div>
 </ng-template>
 <div>
-        <button class="nav-item nav-link btn btn-primary btn-primary-outline2" (click)="open(content)">Book Event</button>
+        <button class="nav-item nav-link btn btn-primary btn-primary-outline2" (click)="open(content)">New Event</button>
 </div>
 

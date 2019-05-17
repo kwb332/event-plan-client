@@ -3,6 +3,9 @@ import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,add
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView} from 'angular-calendar';
+import { ApiService } from '../shared/services/api/api.service';
+import {Event} from '../shared/services/models/event.model';
+import {EventModalComponent} from '../shared/modals/event.modal.component';
 
 const colors: any = {
   red: {
@@ -18,6 +21,8 @@ const colors: any = {
     secondary: '#FDF1BA'
   }
 };
+ 
+
 
 
 @Component({
@@ -25,11 +30,51 @@ const colors: any = {
   templateUrl: './event-calendar.component.html',
   styleUrls: ['./event-calendar.component.css']
 })
+
 export class EventCalendarComponent implements OnInit {
 
-  constructor(private modal: NgbModal) {}
+  getColor(color:string)
+  {
+    switch(color)
+    {
+      case 'Red':
+        return colors.red;
+      case 'Blue':
+        return colors.blue;
+      default:
+         return colors.yellow;
+    }
+  }
+  constructor(private modal: NgbModal, private apiService : ApiService ) {
+
+  }
 
   ngOnInit() {
+    this.loadEvents();
+  }
+
+  loadEvents()
+  {
+   /* this.apiService.getEvents().subscribe(event=>{
+        this.eventData = event;
+    },
+    error=>
+    {
+        console.log(error);
+    }); */
+
+
+this.eventData.map<CalendarEvent>(item => {
+    return {
+      start: item.startDate,
+      end: item.endDate,
+      title: item.title,
+      color:  this.getColor(item.primaryColor),
+      allDay: true
+    }
+}).forEach(item => this.events.push(item));
+
+console.log(JSON.stringify(this.events))
   }
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
@@ -43,6 +88,49 @@ export class EventCalendarComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
+
+   eventData : Event[]=[
+    {
+        id: 1,
+        title: 'Millennium Park',
+        poster: 'kwb332',
+        type: 'Site',
+        description: 'Historical Site in Chicago',
+        street: '201 E Randolph St, Chicago',
+        state: 'IL',
+        primaryColor: 'Red',
+        secondaryColor:'blue',
+        startDate: new Date('02/02/2019'),
+        endDate: new Date('02/04/2019')
+    },
+    {
+        id: 2,
+        title: 'Brandos Speak-Easy',
+        poster: 'kwb332',
+        type: 'Bar',
+        description: 'A bar in Chicago',
+        street: '343 S Dearborn St, Chicago',
+        state: 'IL',
+        primaryColor: 'Red',
+        secondaryColor:'blue',
+        startDate: new Date('02/05/2019'),
+        endDate: new Date('02/06/2019')
+    },
+    {
+        id: 3,
+        title: 'Bureau Bar',
+        poster: 'kwb332',
+        type: 'Bar',
+        description: 'A South Loop hangout spot',
+        street: '75 E 16th St, Chicago',
+        state: 'IL',
+        primaryColor: 'Red',
+        secondaryColor:'blue',
+        startDate: new Date('02/08/2019'),
+        endDate: new Date('02/10/2019')
+    }
+  ];
+  
 
   actions: CalendarEventAction[] = [
     {
@@ -61,8 +149,8 @@ export class EventCalendarComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
+  events: CalendarEvent[] = [];
+ /* events: CalendarEvent[] = [
     {
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
@@ -101,7 +189,7 @@ export class EventCalendarComponent implements OnInit {
       },
       draggable: true
     }
-  ];
+  ]; */
 
   activeDayIsOpen: boolean = true;
 
@@ -115,6 +203,7 @@ export class EventCalendarComponent implements OnInit {
         events.length === 0
       ) {
         this.activeDayIsOpen = false;
+
       } else {
         this.activeDayIsOpen = true;
       }
@@ -122,10 +211,12 @@ export class EventCalendarComponent implements OnInit {
   }
 
   eventTimesChanged({
+   
     event,
     newStart,
     newEnd
   }: CalendarEventTimesChangedEvent): void {
+   
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {
@@ -134,6 +225,7 @@ export class EventCalendarComponent implements OnInit {
           end: newEnd
         };
       }
+    
       return iEvent;
     });
     this.handleEvent('Dropped or resized', event);
@@ -145,6 +237,7 @@ export class EventCalendarComponent implements OnInit {
   }
 
   addEvent(): void {
+ 
     this.events = [
       ...this.events,
       {

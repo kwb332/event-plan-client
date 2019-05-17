@@ -31,6 +31,7 @@ import { EventModalModule } from './shared/modals/event.modal.module';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'events',      component: EventComponent },
+  { path: '',   redirectTo: 'home', pathMatch: 'full' },
   { path: 'locations',      component: LocationComponent }
 ];
 

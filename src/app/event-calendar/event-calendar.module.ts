@@ -7,12 +7,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventCalendarComponent } from '../event-calendar/event-calendar.component';
 import { EventCalendarHeaderComponent } from './event-calendar-header.component';
+import { EventModalModule } from '../shared/modals/event.modal.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgbModalModule,
+    EventModalModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
