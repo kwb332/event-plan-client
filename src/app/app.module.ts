@@ -77,19 +77,10 @@ export class AppModule {
     apollo: Apollo,
     httpLink: HttpLink) 
     { 
-      const authMiddleware = new ApolloLink((operation,forward) => {
-        const currentUserToken = 'erererere-erere-ererere';
-        if(currentUserToken){
-          operation.setContext({
-            headers: new HttpHeaders().set('Access-Control-Allow-Origin', 'http://localhost:4200')
-          })
-        }
-    
-      return forward(operation)
-    });      
+     
       apollo.create({
        
-        link: concat(authMiddleware,  httpLink.create({ uri: environment.graphqlEndpoint })),
+        link: httpLink.create({ uri: environment.graphqlEndpoint }),
         cache: new InMemoryCache()
       });
     }

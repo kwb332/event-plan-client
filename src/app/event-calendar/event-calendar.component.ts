@@ -83,13 +83,13 @@ private count : number = 0;
   loadEvents()
   {
     this.events = [];
-   /* this.apiService.getEvents().subscribe(event=>{
+    this.apiService.getEvents().subscribe(event=>{
         this.eventData = event;
     },
     error=>
     {
         console.log(error);
-    }); */
+    }); 
 
 
 this.eventData.map<CalendarEvent>(item => {
