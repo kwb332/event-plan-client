@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/dist/"event-plan-app'));
 
 app.get('/*', function(req,res) {
     
-res.sendFile(path.join(__dirname+'/dist/"event-plan-app/index.html'));
+res.sendFile(path.join(__dirname+'/dist/event-plan-app/index.html'));
 });
 
 //const path = require('path');
