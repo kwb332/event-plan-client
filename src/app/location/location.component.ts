@@ -12,9 +12,9 @@ import {MessagingService} from '../shared/services/messaging/messaging.service'
   styleUrls: ['./location.component.css']
 })
 export class LocationComponent implements OnInit {
-  private locations : location[] = [];
-  private lat : number; 
-  private lng : number;
+  public locations : location[] = [];
+  public lat : number; 
+  public lng : number;
   private curlocation : location;
   private messageSubscription : Subscription;
 
