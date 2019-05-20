@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "node server.js",
     "build": "ng build",
-    "postinstall":  "ng build --aot --prod",
+    "postinstall": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -13,14 +13,13 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
-    "typescript": "~3.2.2",
     "@angular-devkit/build-angular": "~0.13.0",
-    "@angular/compiler-cli": "^7.2.15",
-    "@angular/cli": "^7.3.9",
     "@angular/animations": "^7.2.15",
     "@angular/cdk": "^7.3.7",
+    "@angular/cli": "^7.3.9",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
+    "@angular/compiler-cli": "^7.2.15",
     "@angular/core": "~7.2.0",
     "@angular/forms": "~7.2.0",
     "@angular/http": "^7.2.15",
@@ -45,6 +44,7 @@
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
+    "typescript": "~3.2.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
