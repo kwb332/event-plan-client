@@ -8,12 +8,18 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventCalendarComponent } from '../event-calendar/event-calendar.component';
 import { EventCalendarHeaderComponent } from './event-calendar-header.component';
 import { EventModalModule } from '../shared/modals/event.modal.module';
+import {
+
+  MatSnackBarModule,
+ 
+} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     NgbModalModule,
+    MatSnackBarModule,
     EventModalModule,
     FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
@@ -22,6 +28,7 @@ import { EventModalModule } from '../shared/modals/event.modal.module';
     })
   ],
   declarations: [EventCalendarComponent, EventCalendarHeaderComponent],
+ 
   exports: [EventCalendarComponent, EventCalendarHeaderComponent]
 })
 export class EventCalendarModule {}

@@ -4,6 +4,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {ApiService} from '../services/api/api.service';
 import { EventInput } from '../services/models/event.model';
 import {MessagingService} from '../services/messaging/messaging.service'
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-modal-event',
@@ -55,9 +56,47 @@ export class EventModalComponent {
 
       if(this.checkFields(newEvent))
       {
-        this.messagingService.sendObject(newEvent);
-        this.openSnackBar("New Event Successfully Added");
-        this.modalService.dismissAll();
+        this.apiService.getEvents().subscribe(events =>
+          {
+           
+            
+            var conflicts =  events.filter(curEvent => curEvent.startDate >= newEvent.startDate && curEvent.endDate <= newEvent.endDate);
+            
+            conflicts  = conflicts.filter(curEvent => curEvent.street.includes(newEvent.street) == true);
+            conflicts  = conflicts.filter(curEvent => curEvent.state.includes(newEvent.state) == true);
+          
+       
+            if(conflicts.length == 0)
+            {
+              this.apiService.addEvent(newEvent).subscribe(isCreated=>
+                {
+                   
+                      this.messagingService.sendObject(newEvent);
+                      this.openSnackBar("New Event Successfully Added");
+                      this.modalService.dismissAll();
+                   
+                },
+                error =>
+                {
+                   console.log(error);
+                   this.openSnackBar("Error Adding new Event");
+                }
+              );
+            }
+            else
+            {
+              this.openSnackBar("Sorry. Event already exists in this time slot and location");
+            }
+          },
+          error=>
+          {
+            console.log(error);
+            this.openSnackBar("Error Adding new Event");
+          }
+          )
+       
+      
+       
       }
       else
       {
@@ -77,6 +116,11 @@ export class EventModalComponent {
   }
   checkFields(eventInput : EventInput) : boolean
   {
+    if(eventInput.startDate > eventInput.endDate)
+    {
+      this.openSnackBar("Start Date can't be greater than End Date")
+      return false;
+    }
     if(this.state == "")
     {
        return false;

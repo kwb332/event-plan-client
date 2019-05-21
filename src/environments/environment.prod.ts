@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  graphqlEndpoint: 'http://localhost:4000/graphql'
+   graphqlEndpoint: 'https://cors-anywhere.herokuapp.com/https://raggioeventplan.herokuapp.com/graphql'
 };

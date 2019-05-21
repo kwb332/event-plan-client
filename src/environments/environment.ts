@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  graphqlEndpoint: 'https://raggioeventplan.herokuapp.com/graphql'
+  graphqlEndpoint: 'https://cors-anywhere.herokuapp.com/https://raggioeventplan.herokuapp.com/graphql'
 };
 
 /*

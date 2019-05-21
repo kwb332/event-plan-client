@@ -173,9 +173,14 @@
           />
         </td>
         <td>
-          <button class="btn btn-danger" (click)="deleteEvent(event)">
+          <span style="width:100%;float:left">
+          <button style="float:left" class="btn btn-danger" (click)="deleteEvent(event)">
             Delete
           </button>
+          <button style="float:left" class="btn btn-primary" (click)="update(event)">
+            Update
+          </button>
+        </span>
         </td>
       </tr>
     </tbody>

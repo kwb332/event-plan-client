@@ -1,6 +1,6 @@
 export interface Event
 {
-id: number
+
 _id? : string,
 title: string,
 poster: string,
@@ -17,7 +17,7 @@ endDate: Date
 
 export interface EventUpdateInput
 {
-id: number
+id?: number
 _id? : string,
 title: string,
 poster: string,

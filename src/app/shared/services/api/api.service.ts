@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import{Apollo} from 'apollo-angular';
 import {Http} from '@angular/http';
 import gql from 'graphql-tag';
-import {Event, EventInput} from '../models/event.model'
+import {Event, EventInput, EventUpdateInput} from '../models/event.model'
 import {Observable, Subscription} from 'rxjs';
 import{map} from 'rxjs/operators';
 import{HttpRequest, HttpClient, HttpHeaders} from '@angular/common/http';
@@ -29,8 +29,8 @@ getEvents() : Observable<Event[]>
         {
           events
           {
-            id
             _id
+            title
             description
             type
             poster
@@ -60,18 +60,18 @@ getEvent(id : number) : Observable<Event>
         {
           event(id :${id})
           {
-            id
-    description
-    type
-    poster
-    startDate
-    endDate
-    street
-    state
-    primaryColor
-    secondaryColor
-    
-            
+      
+            _id
+            title
+            description
+            type
+            poster
+            startDate
+            endDate
+            street
+            state
+            primaryColor
+            secondaryColor
           }
         }
         
@@ -83,11 +83,29 @@ getEvent(id : number) : Observable<Event>
     );
 }
 
+deleteEvent(id : string) : Observable<boolean>
+{
+    return this.apollo
+       .mutate<any>({
+        fetchPolicy: 'no-cache',
+        mutation: gql`
+        mutation
+        {
+           deleteEvent(_id : "${id}" )
+        }
+        `
+    })
+    .pipe(
+      map(result => result.data.deleteEvent)
+    );
+}
+
+
 addEvent(newEvent : EventInput) : Observable<boolean>
 {
     return this.apollo
        .mutate<any>({
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'no-cache',
         mutation: gql`
         mutation addEvent($newEvent : EventInput!){
             addEvent(newEvent: $newEvent)
@@ -101,6 +119,31 @@ addEvent(newEvent : EventInput) : Observable<boolean>
       map(result => result.data.addEvent)
     );
 }
+
+updateEvent(updateEvent : EventUpdateInput) : Observable<boolean>
+{
+    return this.apollo
+       .mutate<any>({
+        fetchPolicy: 'no-cache',
+        mutation: gql`
+        mutation updateEvent($updateEvent : EventUpdateInput!) {
+          updateEvent(updateEvent: $updateEvent)
+          {
+            _id
+          }
+        }
+        
+        `,
+        variables:{
+          updateEvent
+        }
+    })
+    .pipe(
+      map(result => result.data.updateEvent)
+    );
+}
+
+
 
 }
 
