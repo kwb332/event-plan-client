@@ -83,7 +83,7 @@ getEvent(id : number) : Observable<Event>
     );
 }
 
-deleteEvent(id : string) : Observable<boolean>
+deleteEvent(id : string) : Observable<any>
 {
     return this.apollo
        .mutate<any>({
@@ -120,7 +120,7 @@ addEvent(newEvent : EventInput) : Observable<boolean>
     );
 }
 
-updateEvent(updateEvent : EventUpdateInput) : Observable<boolean>
+updateEvent(updateEvent : EventUpdateInput) : Observable<any>
 {
     return this.apollo
        .mutate<any>({
